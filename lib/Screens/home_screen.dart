@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:expense_manager/Widgets/small_card.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:toast/toast.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,10 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Expenses',
+          '\tExpenses',
           style: TextStyle(fontSize: 24),
         ),
-        centerTitle: true,
+        //centerTitle: true,
       ),
       // ignore: deprecated_member_use
       body: ValueListenableBuilder(
@@ -54,68 +55,53 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget safeArea(int balance, int income, int expenses) {
+    final List<ChartData> chartData = [
+      ChartData('Expenses', expenses, Colors.red),
+      ChartData('Income', income, Colors.greenAccent),
+    ];
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 24,
-            ),
-            Text(
-              '\tBalance',
-              style: TextStyle(fontSize: 21),
-            ),
-            SizedBox(
-              height: 18,
-            ),
+            TextWithNumber(num: balance, name: 'Balance'),
+            SizedBox(height: 24),
+            Divider(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  '\t₹ $balance',
-                  style: TextStyle(fontSize: 30),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.remove_red_eye,
-                    size: 25,
-                  ),
-                  onPressed: () {
-                    Toast.show("Nope", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                  },
-                ),
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextWithNumber(num: income, name: 'Income'),
+                SizedBox(width: MediaQuery.of(context).size.width / 3),
+                TextWithNumber(num: expenses, name: 'Expense'),
               ],
             ),
-            SizedBox(height: 100),
-//            SmallCard(
-//              str: 'Income',
-//              icon: Icons.trending_up,
-//              value: '\₹ $income',
-//            ),
-//            SizedBox(height: 40),
-//            SmallCard(
-//              str: 'Expenses',
-//              icon: Icons.trending_down,
-//              value: '\₹ $expenses',
-//            ),
+            SizedBox(height: 24),
+            Divider(),
+            SizedBox(height: 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                SmallCard(
-                  str: 'Income',
-                  icon: Icons.trending_up,
-                  value: '\₹ $income',
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                SmallCard(
-                  str: 'Expenses',
-                  icon: Icons.trending_down,
-                  value: '\₹ $expenses',
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: SfCircularChart(
+                    legend: Legend(
+                      isVisible: true,
+                      overflowMode: LegendItemOverflowMode.wrap,
+                    ),
+                    series: <CircularSeries>[
+                      PieSeries<ChartData, String>(
+                        dataSource: chartData,
+                        pointColorMapper: (ChartData data, _) => data.color,
+                        xValueMapper: (ChartData data, _) => data.x,
+                        yValueMapper: (ChartData data, _) => data.y,
+                        radius: '110%',
+                        dataLabelSettings: DataLabelSettings(
+                          isVisible: true,
+                        ),
+                        animationDuration: 500,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -124,4 +110,45 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class TextWithNumber extends StatelessWidget {
+  final int num;
+  final String name;
+
+  TextWithNumber({this.num, this.name});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 24,
+        ),
+        Text(
+          '\t$name',
+          style: TextStyle(fontSize: 21),
+        ),
+        SizedBox(
+          height: 18,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              '\t₹ $num',
+              style: TextStyle(fontSize: 30),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class ChartData {
+  ChartData(this.x, this.y, [this.color]);
+  final String x;
+  final int y;
+  final Color color;
 }

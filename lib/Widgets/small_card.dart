@@ -43,8 +43,11 @@ class SmallCard extends StatelessWidget {
                 Text(
                   value,
                   style: TextStyle(fontSize: 20),
-                )
+                ),
               ],
+            ),
+            SizedBox(
+              width: 10,
             ),
           ],
         ),

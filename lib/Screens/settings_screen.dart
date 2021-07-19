@@ -9,17 +9,17 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String _dropDownValue;
+  //String _dropDownValue;
   @override
   Widget build(BuildContext context) {
     String id = ThemeProvider.controllerOf(context).currentThemeId;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
+          '\tSettings',
           style: TextStyle(fontSize: 24),
         ),
-        centerTitle: true,
+        // centerTitle: true,
       ),
       body: ListView(
         padding: EdgeInsets.only(top: 18),
@@ -37,30 +37,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.attach_money),
-            title: Text('Change currency'),
-            trailing: DropdownButton<String>(
-              items: <String>['\$', '₹', '€', '£', '¥'].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              hint: _dropDownValue == null
-                  ? Text('₹')
-                  : Text(
-                      _dropDownValue,
-                      style: TextStyle(color: Colors.blue),
-                    ),
-              onChanged: (val) {
-                setState(() {
-                  _dropDownValue = val;
-                });
-              },
-              iconEnabledColor: Colors.white,
-            ),
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.attach_money),
+          //   title: Text('Change currency'),
+          //   trailing: DropdownButton<String>(
+          //     items: <String>['\$', '₹', '€', '£', '¥'].map((String value) {
+          //       return DropdownMenuItem<String>(
+          //         value: value,
+          //         child: Text(value),
+          //       );
+          //     }).toList(),
+          //     hint: _dropDownValue == null
+          //         ? Text('₹')
+          //         : Text(
+          //             _dropDownValue,
+          //             style: TextStyle(color: Colors.blue),
+          //           ),
+          //     onChanged: (val) {
+          //       setState(() {
+          //         _dropDownValue = val;
+          //       });
+          //     },
+          //     iconEnabledColor: Colors.white,
+          //   ),
+          // ),
           SizedBox(
             height: 56,
           ),

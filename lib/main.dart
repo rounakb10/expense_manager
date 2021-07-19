@@ -1,5 +1,6 @@
 import 'package:expense_manager/Models/expense.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:theme_provider/theme_provider.dart';
@@ -16,7 +17,10 @@ Future<void> main() async {
 
   await Hive.openBox('expense');
 
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then(
+    (_) => runApp(MyApp()),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -54,7 +58,7 @@ class _MyAppState extends State<MyApp> {
             ),
             cardColor: Colors.transparent,
             bottomAppBarColor: bgColor,
-            cardTheme: CardTheme(elevation: 2, color: Colors.blueGrey[900]),
+            cardTheme: CardTheme(elevation: 2, color: Colors.grey[900]),
             inputDecorationTheme:
                 InputDecorationTheme(fillColor: Colors.grey.shade900),
           ),
@@ -68,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             appBarTheme: AppBarTheme(
               color: Colors.lightBlueAccent,
             ),
-            cardTheme: CardTheme(elevation: 1, color: Colors.grey.shade300),
+            cardTheme: CardTheme(elevation: 1, color: Colors.grey.shade50),
             inputDecorationTheme:
                 InputDecorationTheme(fillColor: Colors.grey.shade300),
           ),

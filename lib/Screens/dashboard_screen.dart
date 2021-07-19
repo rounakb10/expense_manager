@@ -11,18 +11,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Dashboard',
+          '\tDashboard',
           style: TextStyle(fontSize: 24),
         ),
-        centerTitle: true,
+        // centerTitle: true,
       ),
       body: Scaffold(
-        body: Center(
-          child: Image.asset(
-            'assets/work_in_progress.png',
-            scale: 3,
-          ),
-        ),
+        body: Center(),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Widgets/FAB.dart';
 
@@ -99,7 +100,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ),
             mainFab(),
             SizedBox(
-              height: 30,
+              height: 70,
             )
           ],
         ),
@@ -111,26 +112,27 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         child: Container(
           height: 60,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  appBarButton(HomeScreen(), 0, 'Home', Icons.home),
-                  appBarButton(
-                      DashboardScreen(), 1, 'Dashboard', Icons.dashboard),
-                ],
-              ),
-              // Right Tab bar icons
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  appBarButton(TransactionsScreen(), 2, 'Transactions',
-                      Icons.attach_money),
-                  appBarButton(SettingsScreen(), 3, 'Settings', Icons.settings),
-                ],
-              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 12),
+              appBarButton(HomeScreen(), 0, 'Home', Icons.home),
+              SizedBox(width: MediaQuery.of(context).size.width / 8.3),
+              appBarButton(
+                  TransactionsScreen(), 2, 'Transactions', Icons.attach_money),
+              SizedBox(width: MediaQuery.of(context).size.width / 10.2),
+              appBarButton(SettingsScreen(), 3, 'Settings', Icons.settings),
             ],
+
+            // Right Tab bar icons
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: <Widget>[
+            //     appBarButton(TransactionsScreen(), 2, 'Transactions',
+            //         Icons.attach_money),
+            //     appBarButton(SettingsScreen(), 3, 'Settings', Icons.settings),
+            //   ],
+            // ),
           ),
         ),
       ),
