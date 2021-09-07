@@ -1,2 +1,2 @@
 # expense_manager
-To get the downloadable apk file, go to expense_manager/release-apk
+Manage your expenses with the easy to use Expense Manager app
