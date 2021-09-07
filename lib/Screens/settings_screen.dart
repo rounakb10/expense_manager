@@ -83,13 +83,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                       actions: <Widget>[
-                        TextButton(
+                        MaterialButton(
                           child: Text('Cancel'),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                         ),
-                        TextButton(
+                        MaterialButton(
                           onPressed: () {
                             Hive.box('expense').clear();
                             Navigator.of(context).pop();

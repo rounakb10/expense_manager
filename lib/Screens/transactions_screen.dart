@@ -78,13 +78,13 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                               return AlertDialog(
                                 title: Text('Delete ${expense.name}?'),
                                 actions: <Widget>[
-                                  TextButton(
+                                  MaterialButton(
                                     child: Text('Cancel'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
-                                  TextButton(
+                                  MaterialButton(
                                     onPressed: () {
                                       Hive.box('expense').putAt(
                                           expenseBox.length - index - 1,

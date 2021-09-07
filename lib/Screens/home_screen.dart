@@ -1,10 +1,10 @@
 import 'package:expense_manager/Models/expense.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_manager/Widgets/small_card.dart';
+// import 'package:expense_manager/Widgets/small_card.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:toast/toast.dart';
+// import 'package:toast/toast.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -79,35 +79,43 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 24),
             Divider(),
             SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: SfCircularChart(
-                    legend: Legend(
-                      isVisible: true,
-                      overflowMode: LegendItemOverflowMode.wrap,
-                    ),
-                    series: <CircularSeries>[
-                      PieSeries<ChartData, String>(
-                        dataSource: chartData,
-                        pointColorMapper: (ChartData data, _) => data.color,
-                        xValueMapper: (ChartData data, _) => data.x,
-                        yValueMapper: (ChartData data, _) => data.y,
-                        radius: '110%',
-                        dataLabelSettings: DataLabelSettings(
-                          isVisible: true,
-                        ),
-                        animationDuration: 500,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            chart(chartData, income, expenses)
           ],
         ),
       ),
+    );
+  }
+
+  Widget chart(var chartData, var income, var expenses) {
+    if (income == 0 && expenses == 0)
+      return SizedBox(
+        height: 0,
+      );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          child: SfCircularChart(
+            legend: Legend(
+              isVisible: true,
+              overflowMode: LegendItemOverflowMode.wrap,
+            ),
+            series: <CircularSeries>[
+              PieSeries<ChartData, String>(
+                dataSource: chartData,
+                pointColorMapper: (ChartData data, _) => data.color,
+                xValueMapper: (ChartData data, _) => data.x,
+                yValueMapper: (ChartData data, _) => data.y,
+                radius: '110%',
+                dataLabelSettings: DataLabelSettings(
+                  isVisible: true,
+                ),
+                animationDuration: 500,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
